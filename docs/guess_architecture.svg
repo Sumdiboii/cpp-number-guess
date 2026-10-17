@@ -1,0 +1,115 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" width="1200" height="750" font-family="'Segoe UI', Helvetica, Arial, sans-serif">
+  <title>Number Guess system architecture</title>
+  <desc>A user plays the game through the terminal. The game flow in guess.cpp seeds the random generator, runs rounds, validates input, and uses loadHighScore and saveHighScore to persist the best score in highscore.txt.</desc>
+
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="750" rx="16" fill="#F7FAF8"/>
+
+  <!-- Title -->
+  <text x="600" y="52" text-anchor="middle" font-size="28" font-weight="700" fill="#1F2937">Number Guess: System Architecture</text>
+  <text x="600" y="80" text-anchor="middle" font-size="15" fill="#6B7280">One game loop, plus a small persistence layer that remembers your best score</text>
+
+  <!-- ============ USER ============ -->
+  <rect x="40" y="240" width="180" height="170" rx="12" fill="#FFF8E6" stroke="#B7791F" stroke-width="2"/>
+  <text x="130" y="295" text-anchor="middle" font-size="20" font-weight="700" fill="#1F2937">Player</text>
+  <text x="130" y="322" text-anchor="middle" font-size="14" fill="#374151">Terminal</text>
+  <text x="130" y="344" text-anchor="middle" font-size="13" fill="#6B7280">keyboard and console</text>
+
+  <line x1="222" y1="300" x2="288" y2="300" stroke="#374151" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="255" y="291" text-anchor="middle" font-size="12" fill="#374151">guesses</text>
+  <line x1="288" y1="360" x2="222" y2="360" stroke="#374151" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="255" y="380" text-anchor="middle" font-size="12" fill="#374151">hints</text>
+
+  <!-- ============ GAME FLOW ============ -->
+  <rect x="290" y="110" width="400" height="545" rx="14" fill="#EAF5EE" stroke="#1B7A43" stroke-width="2.5"/>
+  <text x="490" y="146" text-anchor="middle" font-size="21" font-weight="700" fill="#1B7A43">guess.cpp: main()</text>
+  <text x="490" y="170" text-anchor="middle" font-size="13.5" fill="#374151">Game flow: runs top to bottom, one round at a time</text>
+
+  <!-- 1. Startup -->
+  <rect x="320" y="200" width="360" height="85" rx="10" fill="#FFFFFF" stroke="#1B7A43" stroke-width="1.5"/>
+  <text x="500" y="226" text-anchor="middle" font-size="16" font-weight="700" fill="#1F2937">1. Startup</text>
+  <text x="500" y="249" text-anchor="middle" font-size="12.5" font-family="Consolas, Menlo, monospace" fill="#1B7A43">srand(time(nullptr))</text>
+  <text x="500" y="270" text-anchor="middle" font-size="12.5" fill="#374151">Seeds the RNG, loads the best score</text>
+
+  <!-- 2. Round loop -->
+  <rect x="320" y="305" width="360" height="125" rx="10" fill="#FFFFFF" stroke="#1B7A43" stroke-width="1.5"/>
+  <text x="500" y="331" text-anchor="middle" font-size="16" font-weight="700" fill="#1F2937">2. Round loop</text>
+  <text x="500" y="355" text-anchor="middle" font-size="12.5" font-family="Consolas, Menlo, monospace" fill="#1B7A43">secret = rand() % 100 + 1</text>
+  <text x="500" y="379" text-anchor="middle" font-size="12.5" fill="#374151">Reads a guess and counts the attempt</text>
+  <text x="500" y="400" text-anchor="middle" font-size="12.5" fill="#374151">Hint: too high, too low, or correct</text>
+  <text x="500" y="420" text-anchor="middle" font-size="12" fill="#6B7280">Repeats until the guess matches</text>
+
+  <!-- 3. Input validation -->
+  <rect x="320" y="450" width="360" height="70" rx="10" fill="#FFFFFF" stroke="#C0392B" stroke-width="1.5"/>
+  <text x="500" y="472" text-anchor="middle" font-size="16" font-weight="700" fill="#1F2937">3. Input validation</text>
+  <text x="500" y="492" text-anchor="middle" font-size="12.5" fill="#374151">Non-numeric input is cleared and re-prompted</text>
+  <text x="500" y="508" text-anchor="middle" font-size="11.5" fill="#C0392B">The bad attempt is never counted</text>
+
+  <!-- 4. Score and replay -->
+  <rect x="320" y="540" width="360" height="85" rx="10" fill="#FFFFFF" stroke="#1B7A43" stroke-width="1.5"/>
+  <text x="500" y="566" text-anchor="middle" font-size="16" font-weight="700" fill="#1F2937">4. Score check and replay</text>
+  <text x="500" y="590" text-anchor="middle" font-size="12.5" fill="#374151">Fewer attempts than the best? New record</text>
+  <text x="500" y="610" text-anchor="middle" font-size="12.5" fill="#374151">Then asks "Play again? (y/n)"</text>
+
+  <!-- ============ main <-> persistence arrows ============ -->
+  <text x="747" y="224" text-anchor="middle" font-size="12" fill="#374151">loadHighScore()</text>
+  <line x1="682" y1="236" x2="813" y2="236" stroke="#374151" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="813" y1="268" x2="682" y2="268" stroke="#374151" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="747" y="286" text-anchor="middle" font-size="12" fill="#374151">best score</text>
+
+  <text x="747" y="570" text-anchor="middle" font-size="12" fill="#374151">new record only</text>
+  <line x1="682" y1="582" x2="813" y2="582" stroke="#374151" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- ============ PERSISTENCE ============ -->
+  <rect x="800" y="110" width="360" height="545" rx="14" fill="#EEF1F8" stroke="#2F4A8A" stroke-width="2.5"/>
+  <text x="980" y="146" text-anchor="middle" font-size="21" font-weight="700" fill="#2F4A8A">Persistence layer</text>
+  <text x="980" y="170" text-anchor="middle" font-size="13.5" fill="#374151">Two small functions own all disk access</text>
+
+  <!-- loadHighScore -->
+  <rect x="815" y="200" width="330" height="85" rx="10" fill="#FFFFFF" stroke="#2F4A8A" stroke-width="1.5"/>
+  <text x="980" y="226" text-anchor="middle" font-size="12.5" font-family="Consolas, Menlo, monospace" font-weight="700" fill="#2F4A8A">int loadHighScore()</text>
+  <text x="980" y="250" text-anchor="middle" font-size="12.5" fill="#374151">Reads the saved best score</text>
+  <text x="980" y="270" text-anchor="middle" font-size="12.5" fill="#374151">Falls back to 999 if the file is missing</text>
+
+  <!-- File -->
+  <rect x="815" y="325" width="330" height="175" rx="10" fill="#FFF8E6" stroke="#B7791F" stroke-width="2" stroke-dasharray="7 5"/>
+  <text x="980" y="360" text-anchor="middle" font-size="12.5" font-family="Consolas, Menlo, monospace" font-weight="700" fill="#8A5A12">highscore.txt</text>
+  <text x="980" y="388" text-anchor="middle" font-size="16" font-weight="700" fill="#1F2937">File on disk</text>
+  <text x="980" y="415" text-anchor="middle" font-size="12.5" fill="#374151">Plain text, a single integer</text>
+  <text x="980" y="437" text-anchor="middle" font-size="12.5" fill="#374151">Lower is better: fewest tries wins</text>
+  <text x="980" y="459" text-anchor="middle" font-size="12.5" fill="#374151">999 means no score has been set</text>
+  <text x="980" y="482" text-anchor="middle" font-size="12" fill="#6B7280">Survives between sessions</text>
+
+  <!-- read / write arrows inside the right container -->
+  <line x1="880" y1="323" x2="880" y2="288" stroke="#374151" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="892" y="311" font-size="12" fill="#374151">reads</text>
+  <line x1="880" y1="538" x2="880" y2="503" stroke="#374151" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="892" y="526" font-size="12" fill="#374151">writes</text>
+
+  <!-- saveHighScore -->
+  <rect x="815" y="540" width="330" height="85" rx="10" fill="#FFFFFF" stroke="#2F4A8A" stroke-width="1.5"/>
+  <text x="980" y="566" text-anchor="middle" font-size="12.5" font-family="Consolas, Menlo, monospace" font-weight="700" fill="#2F4A8A">void saveHighScore(int score)</text>
+  <text x="980" y="590" text-anchor="middle" font-size="12.5" fill="#374151">Overwrites the file with the new best</text>
+  <text x="980" y="610" text-anchor="middle" font-size="12.5" fill="#374151">Skipped unless a record was beaten</text>
+
+  <!-- ============ Legend ============ -->
+  <rect x="290" y="685" width="22" height="14" rx="3" fill="#EAF5EE" stroke="#1B7A43" stroke-width="2"/>
+  <text x="320" y="697" font-size="13" fill="#374151">Game logic</text>
+
+  <rect x="430" y="685" width="22" height="14" rx="3" fill="#EEF1F8" stroke="#2F4A8A" stroke-width="2"/>
+  <text x="460" y="697" font-size="13" fill="#374151">Persistence</text>
+
+  <rect x="580" y="685" width="22" height="14" rx="3" fill="#FFFFFF" stroke="#C0392B" stroke-width="2"/>
+  <text x="610" y="697" font-size="13" fill="#374151">Input validation</text>
+
+  <rect x="760" y="685" width="22" height="14" rx="3" fill="#FFF8E6" stroke="#B7791F" stroke-width="2" stroke-dasharray="4 3"/>
+  <text x="790" y="697" font-size="13" fill="#374151">Disk file</text>
+
+  <text x="600" y="730" text-anchor="middle" font-size="13" fill="#6B7280">C++ standard library only: iostream, cstdlib, ctime, fstream. No external dependencies.</text>
+</svg>
