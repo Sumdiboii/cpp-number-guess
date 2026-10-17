@@ -95,7 +95,7 @@ It is built to be the kind of code you can read top to bottom in one sitting: sm
 ## 🧭 Architecture
 
 <p align="center">
-  <img src="docs/architecture.svg" alt="Number Guess system architecture" width="900" />
+  <img src="docs/guess_architecture.svg" alt="Number Guess system architecture" width="900" />
 </p>
 
 ---
